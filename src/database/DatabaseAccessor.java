@@ -17,23 +17,25 @@ public class DatabaseAccessor {
 	 * Connects to the database
 	 */
 	public static void connect(){
-		try{
+		return;
+		/*try{
 		  Class.forName(driver).newInstance();
 		  conn = DriverManager.getConnection(url+dbName, userName, password);
 		} 
 		catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	/**
 	 * Disconnects from the database
 	 */
 	public static void disconnect(){
-		try {
+		return;
+		/*try {
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 }

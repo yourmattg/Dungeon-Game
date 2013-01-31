@@ -25,7 +25,7 @@ public class EditRepository extends DatabaseAccessor {
 	 */
 	public static boolean exists(Map map){
 		// Query the database to see if this map exists
-		try {
+		/*try {
 			Statement stmt = conn.createStatement();
 			String query = "SELECT name FROM maps WHERE name = '" + map.name + "' AND author = '" + map.author + "'";
 			ResultSet res = stmt.executeQuery(query);
@@ -36,21 +36,22 @@ public class EditRepository extends DatabaseAccessor {
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}*/
 		return false;
 	}
 	
 	/**
 	 * Saves the map to the database
 	 * @param map
-	 * @return
+	 * @return success
 	 */
 	public static boolean saveMap(Map map){
 		// Serialize the shit out of the tile list
 		String tileData = serializeTileList(map.tiles);
 		
 		// Send a query to store this map in the database
-		try {
+		return true;
+		/*try {
 			Statement stmt = conn.createStatement();
 			String query = "INSERT INTO maps (author, name, tiles) VALUES('";
 			query += map.author + "', '" + map.name + "', '" + tileData + "')";
@@ -61,7 +62,7 @@ public class EditRepository extends DatabaseAccessor {
 		catch (SQLException e) {
 			e.printStackTrace();
 			return false;
-		}		
+		}*/		
 	}
 	
 	/**
@@ -71,7 +72,7 @@ public class EditRepository extends DatabaseAccessor {
 	 */
 	public static Map loadMap(String name, String author){
 		// Query the database for this particular map
-		try {
+		/*try {
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM maps WHERE name = '" + name + "' AND author = '" + author + "'";
 			System.out.println(query);
@@ -85,7 +86,7 @@ public class EditRepository extends DatabaseAccessor {
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
-		}		
+		}*/
 		return null;
 	}
 	
@@ -97,7 +98,7 @@ public class EditRepository extends DatabaseAccessor {
 		ArrayList<Item> items = new ArrayList<Item>();
 		
 		// Get all items from the database
-		try {
+		/*try {
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM items";
 			ResultSet res = stmt.executeQuery(query);
@@ -119,7 +120,7 @@ public class EditRepository extends DatabaseAccessor {
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
-		}	
+		}*/
 		
 		return items;
 	}
@@ -132,7 +133,7 @@ public class EditRepository extends DatabaseAccessor {
 		ArrayList<Tile> tiles = new ArrayList<Tile>();
 		
 		// Get all items from the database
-		try {
+		/*try {
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM tiles";
 			ResultSet res = stmt.executeQuery(query);
@@ -152,7 +153,7 @@ public class EditRepository extends DatabaseAccessor {
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
-		}	
+		}*/
 		
 		return tiles;		
 	}
@@ -228,7 +229,7 @@ public class EditRepository extends DatabaseAccessor {
 		ArrayList<Tile> tileList = new ArrayList<Tile>();
 
 		// Get JSON text as array object
-		JSONArray array = new JSONArray(json);
+		JSONArray array = null;
 		// Add a Tile object for each tile json object
 		for(int i=0; i < array.size(); i++){
 			JSONObject object = (JSONObject) array.get(i);
