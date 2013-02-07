@@ -8,7 +8,7 @@ public class Map {
 	public String name = null;
 	public String author = null;
 	public List<Tile> tiles = new ArrayList<Tile>();
-	public boolean isSaved = false;
+	public boolean isSaved = true;
 	public Tile[][] tileArray;
 	
 	public Map(String name, String author) {

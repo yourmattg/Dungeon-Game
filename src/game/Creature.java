@@ -6,12 +6,17 @@ package game;
  *
  */
 public class Creature extends Mob{
+	
+	public Creature(String name) {
+		this.name = name;
+		path = "res/img/creatures/"+name+".png";
+	}
+	
 	public Creature(String name, double row, double col){
 		this.name = name;
+		path = "res/img/creatures/"+name+".png";
 		this.row = row;
 		this.col = col;
-		
-		imageName = "images/" + name + ".png";
 	}
 
 	/**
@@ -19,7 +24,7 @@ public class Creature extends Mob{
 	 */
 	@Override
 	public void die() {
-		imageName = "images/dead_" + name + ".png";
+		path = "images/dead_" + name + ".png";
 		// TODO: remove from activeCreatures
 	}
 }

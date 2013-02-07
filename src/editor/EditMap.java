@@ -1,5 +1,6 @@
 package editor;
 
+import map.Item;
 import map.Tile;
 
 import java.awt.Color;
@@ -63,10 +64,7 @@ public class EditMap extends JPanel {
 			}
 		}
 		//number of tiles
-		int listSize = tiles.size();
-		for(int i = 0; i < listSize; i++) {
-			//get the tile
-			Tile tile = tiles.get(i);
+		for(Tile tile: tiles) {
 			//make sure tile is in view
 			if(tile.coord.x >= topLeft.x && tile.coord.x < bottomRight.x &&
 					tile.coord.y >= topLeft.y && tile.coord.y < bottomRight.y) {
@@ -75,8 +73,17 @@ public class EditMap extends JPanel {
 				int dy1 = offY+(64*(tile.coord.y - topLeft.y));
 				//get the image and draw it
 				try {
-					Image image = ImageIO.read(new File(tile.imageName));
+					Image image = ImageIO.read(new File(tile.path));
 					g2.drawImage(image, dx1, dy1, 64, 64, null);
+					for(int i = 0; i < tile.stack.size(); i++) {
+						Item top = tile.stack.get(i);
+						image = ImageIO.read(new File(top.path));
+						g2.drawImage(image, dx1, dy1, 64, 64, null);
+					}
+					if(tile.creature != null) {
+						image = ImageIO.read(new File(tile.creature.path));
+						g2.drawImage(image, dx1, dy1, 64, 64, null);
+					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

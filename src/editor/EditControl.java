@@ -80,7 +80,7 @@ public class EditControl {
 			}
 		});
 		//build creatures list
-		//TODO: creatures = EditRepository.getAllCreatures();
+		creatures = EditRepository.getAllCreatures();
 		view.listCreatures.setModel(new AbstractListModel<String>() {
 			private static final long serialVersionUID = 7300745736010421735L;
 			String[] values = new String[] {};
@@ -262,24 +262,42 @@ public class EditControl {
 		}	
 	}
 	
-	public static void addTile(int x, int y) {
-		//get index
+	public static void addObject(int x, int y) {
+		//get dungeon pane index
 		int index = view.dungeonPane.getSelectedIndex();
 		//get map
 		EditMap em = editMap.get(index);
-		//needs to be saved
+		//change is being made
 		map.get(index).isSaved = false;
 		//get tile position
 		int tileX = em.topLeft.x+((x-em.offX)/64);
 		int tileY = em.topLeft.y+((y-em.offY-30)/64);
-		//get image name
+		//get tile's name
 		String name = view.listTiles.getSelectedValue();
-		if(name == null) name = view.listItems.getSelectedValue();
-		if(name == null) name = view.listCreatures.getSelectedValue();
-		//add the tile
-		em.tiles.add(new Tile(0, name, tileX, tileY, null));
+		if(name != null) {
+			//add to tile list with position
+			em.tiles.add(new Tile(0, name, tileX, tileY, null));
+		} else if((name = view.listItems.getSelectedValue()) != null) {
+			Tile tile = getTile(tileX, tileY);
+			if(tile != null)
+				tile.stack.push(new Item(0, name, true, true, true));
+		} else if((name = view.listCreatures.getSelectedValue()) != null) {
+			Tile tile = getTile(tileX, tileY);
+			if(tile != null)
+				tile.creature = new Creature(name, tileX, tileY);
+		}
 		//draw it in
 		em.repaint();
+	}
+	
+	public static Tile getTile(int x, int y) {
+		EditMap em = editMap.get(view.dungeonPane.getSelectedIndex());
+		for(Tile tile:em.tiles) {
+			if(x == tile.coord.x && y == tile.coord.y) {
+				return tile;
+			}
+		}
+		return null;
 	}
 	
 	public static void displayImage(int x, int y) {
@@ -290,7 +308,7 @@ public class EditControl {
 			EditMap em = editMap.get(view.dungeonPane.getSelectedIndex());
 			try {
 				//open image
-				em.cursorImage = ImageIO.read(new File("res/"+name+".png"));
+				em.cursorImage = ImageIO.read(new File("res/img/tiles/"+name+".png"));
 				//update mouse coordinates
 				em.mouseX = x;
 				em.mouseY = y;
@@ -301,7 +319,7 @@ public class EditControl {
 			EditMap em = editMap.get(view.dungeonPane.getSelectedIndex());
 			try {
 				//open image
-				em.cursorImage = ImageIO.read(new File("res/"+name+".png"));
+				em.cursorImage = ImageIO.read(new File("res/img/items/"+name+".png"));
 				//update mouse coordinates
 				em.mouseX = x;
 				em.mouseY = y;
@@ -312,7 +330,7 @@ public class EditControl {
 			EditMap em = editMap.get(view.dungeonPane.getSelectedIndex());
 			try {
 				//open image
-				em.cursorImage = ImageIO.read(new File("res/"+name+".png"));
+				em.cursorImage = ImageIO.read(new File("res/img/creatures/"+name+".png"));
 				//update mouse coordinates
 				em.mouseX = x;
 				em.mouseY = y;
@@ -442,7 +460,7 @@ public class EditControl {
 		view.dungeonPane.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				addTile(e.getX(), e.getY());
+				addObject(e.getX(), e.getY());
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {

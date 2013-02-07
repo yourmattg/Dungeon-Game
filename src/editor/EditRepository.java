@@ -1,5 +1,7 @@
 package editor;
 
+import game.Creature;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -96,7 +98,7 @@ public class EditRepository extends DatabaseAccessor {
 	 */
 	public static ArrayList<Item> getAllItems(){
 		ArrayList<Item> items = new ArrayList<Item>();
-		
+		items.add(new Item(0, "shovel", true, true, true));
 		// Get all items from the database
 		/*try {
 			Statement stmt = conn.createStatement();
@@ -131,6 +133,8 @@ public class EditRepository extends DatabaseAccessor {
 	 */
 	public static ArrayList<Tile> getAllTiles(){
 		ArrayList<Tile> tiles = new ArrayList<Tile>();
+		tiles.add(new Tile(0, "wall", false));
+		tiles.add(new Tile(1, "floor", true));
 		
 		// Get all items from the database
 		/*try {
@@ -156,6 +160,12 @@ public class EditRepository extends DatabaseAccessor {
 		}*/
 		
 		return tiles;		
+	}
+	
+	public static ArrayList<Creature> getAllCreatures(){
+		ArrayList<Creature> creatures = new ArrayList<Creature>();
+		creatures.add(new Creature("Troll"));
+		return creatures;
 	}
 	
 	

@@ -281,7 +281,7 @@ public class GameController extends BasicGame{
 				// get and draw tile
 				Tile tile = map.tileArray[tileRow][tileCol];
 				try {
-					Image tileImage = new Image(tile.imageName);
+					Image tileImage = new Image(tile.path);
 					int screenRow = row + DRAW_DIST;
 					int screenCol = col + DRAW_DIST;
 					tileImage.draw(64*screenCol-colOffset, 64*screenRow-rowOffset);
@@ -305,7 +305,7 @@ public class GameController extends BasicGame{
 			
 			// draw creature
 			try {
-				Image creatureImage = new Image(creature.imageName);
+				Image creatureImage = new Image(creature.path);
 				int screenRow = (int) ((creature.row - (int)center.row) + DRAW_DIST);
 				int screenCol = (int) ((creature.col - (int)center.col) + DRAW_DIST);
 				creatureImage.draw(64*screenCol-colOffset, 64*screenRow-rowOffset);
@@ -363,14 +363,11 @@ public class GameController extends BasicGame{
 		for(int row=0; row<10; row++){
 			for(int col=0; col<10; col++){
 				int type = testmap[row][col];
-				Tile tile = new Tile();
+				Tile tile;
 				if(type == 1){
-					tile.walkable = false;
-					tile.imageName = "images/wall.png";
-				}
-				if(type == 0){
-					tile.walkable = true;
-					tile.imageName = "images/floor.png";
+					tile = new Tile(0, "wall", false);
+				} else {
+					tile = new Tile(1, "floor", true);
 				}
 				map.tileArray[row][col] = tile;
 			}

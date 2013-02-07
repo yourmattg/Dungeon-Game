@@ -9,7 +9,7 @@ import game.GameController.Direction;
  */
 public abstract class Mob {
 	public String name;
-	public String imageName;
+	public String path;
 	public boolean isPlayer = false;
 	public double moveTime = 400; // ms per square
 	public double dx = 0;
