@@ -6,11 +6,11 @@ import java.sql.SQLException;
 
 public class DatabaseAccessor {
 	protected static Connection conn = null;
-	protected static String url = "jdbc:mysql://localhost:3306/";
-	protected static String dbName = "dungeon";
-	protected static String driver = "com.mysql.jdbc.Driver";
-	protected static String userName = "root";
-	protected static String password = "osznpe5h";
+	protected static String url = "";
+	protected static String dbName = "";
+	protected static String driver = "";
+	protected static String userName = "";
+	protected static String password = "";
 
 	
 	/**
